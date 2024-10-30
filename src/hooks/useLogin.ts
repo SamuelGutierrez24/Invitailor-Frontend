@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 export const useLogin = () => {
     const login = async (email: string, password: string) => {
-        const authService = new AuthService("http://localhost:3001");
+        const authService = new AuthService("https://invitailor.onrender.com");
         const user = await authService.login(email, password);
         if (user)
             Cookies.set("currentUser", JSON.stringify(user));
