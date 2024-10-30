@@ -3,6 +3,7 @@
 import { useLogin } from "@/hooks/useLogin";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import './login.css';
 
 export default function LoginPage(){
     const [login, setLogin] = useState("");
@@ -14,7 +15,7 @@ export default function LoginPage(){
         if(login && password){
             loginFunction(login, password).then((res) => {
                 console.log(res);
-                router.push("/profile");
+                router.push("/home");
             }
             ).catch((err) => {
                 alert("Invalid login or password");
@@ -28,20 +29,32 @@ export default function LoginPage(){
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full h-full" >
-            <h1>Login Page</h1>
-            <label className="mt-4">Login</label>
-            <input type="text" placeholder="Login" value={login} onChange={(e) => setLogin(e.target.value)}
-            className="w-80 h-8 px-2 border border-solid border-black rounded text-black"/>
-
-            <label className="mt-4">Password</label>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
-             className="w-80 h-8 px-2 border border-solid border-black rounded text-black"/>
-             
-             <button
-             onClick={onSubmit}
-             className="mt-4 p-2 bg-gray-900 text-white rounded hover:bg-gray-600 transition-all"
-             >Login</button>
+        <div className="login-container">
+            <div className="login-box">
+                <h1 className="login-title">Login Page</h1>
+                <label className="login-label">Login</label>
+                <input 
+                    type="text" 
+                    placeholder="Login" 
+                    value={login} 
+                    onChange={(e) => setLogin(e.target.value)}
+                    className="login-input"
+                />
+                <label className="login-label">Password</label>
+                <input 
+                    type="password" 
+                    placeholder="Password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="login-input"
+                />
+                <button
+                    onClick={onSubmit}
+                    className="login-button"
+                >
+                    Login
+                </button>
+            </div>
         </div>
     );
 }
