@@ -2,10 +2,15 @@
 
 import { useLogin } from "@/hooks/useLogin";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import './login.css';
 
 export default function LoginPage(){
+    useEffect(() => {
+        Cookies.remove("currentUser");
+    }, []);
+
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
@@ -18,7 +23,7 @@ export default function LoginPage(){
                 router.push("/home");
             }
             ).catch((err) => {
-                alert("Invalid login or password");
+                alert("Invalid email or password");
                 setLogin("");
                 setPassword("");
                 console.log(err);
