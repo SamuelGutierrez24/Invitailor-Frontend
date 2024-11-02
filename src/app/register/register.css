@@ -10,16 +10,7 @@ body, html {
     background: linear-gradient(to right, #4299e1, #9f7aea);
 }
 
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-}
-
-.login-box {
+.register-container {
     background-color: white;
     padding: 2rem;
     border-radius: 0.5rem;
@@ -28,45 +19,52 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Asegura que los elementos estén centrados verticalmente */
 }
 
-.login-title {
+h1 {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
-.login-label {
-    display: block;
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Asegura que los elementos dentro del grupo estén centrados */
+}
+
+label {
+    width: 100%; /* Asegura que las etiquetas ocupen todo el ancho del grupo */
     color: #4a5568;
     font-size: 0.875rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    width: 100%;
-    text-align: left;
+    text-align: left; /* Alinea las etiquetas a la izquierda */
 }
 
-.login-input {
+.register-input {
     width: 100%;
     height: 2.5rem;
     padding: 0.75rem;
     border: 1px solid #cbd5e0;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     color: black;
 }
 
-.login-input:focus {
+.register-input:focus {
     border-color: #4299e1;
     box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
 }
 
-.login-button {
+.register-button {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     background-color: #3182ce;
     color: white;
     border-radius: 0.5rem;
@@ -74,8 +72,9 @@ body, html {
     transition: background-color 0.2s;
     border: none;
     font-size: 1rem;
+    margin-top: 1rem; /* Añade un margen superior para separar el botón del último campo de entrada */
 }
 
-.login-button:hover {
+.register-button:hover {
     background-color: #2b6cb0;
 }

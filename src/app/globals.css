@@ -1,31 +1,109 @@
-body { 
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0; 
-} 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-h1 { 
-  font-size: 3em;
-  margin: 0.5em 0; 
-} 
+.home-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-h2 { 
-  font-size: 1.5em;
-  margin: 0.5em 0; 
-} 
+h1 {
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
 
-.button-container { 
-  display: flex; 
-  gap: 1em; 
-} 
+h2 {
+    font-size: 24px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
 
-.button-container button { 
-  padding: 0.5em 1em;
-  font-size: 1em;
-  cursor: pointer;
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.primary-button, .secondary-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 200px; /* Establece un ancho fijo para los botones */
+}
+
+.primary-button:hover, .secondary-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    background-color: #2ecc71;
+}
+
+.secondary-button:hover {
+    background-color: #27ae60;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 200px; /* Establece un ancho fijo para el botón */
+}
+
+.dropdown-toggle:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1;
+    width: auto; /* Ajusta el ancho automáticamente */
+    white-space: nowrap; /* Evita que los botones se envuelvan */
+}
+
+.dropdown-menu .secondary-button {
+    width: auto; /* Ajusta el ancho automáticamente */
+    margin: 5px; /* Ajusta el margen entre los botones */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: flex; /* Muestra el menú como un flexbox */
+    flex-direction: row; /* Organiza los botones horizontalmente */
 }

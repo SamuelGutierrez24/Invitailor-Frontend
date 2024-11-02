@@ -1,17 +1,25 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useRegister } from "@/hooks/useRegister";
+import './register.css';
 
 export default function RegisterPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const role = searchParams.get('role');
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [role, setRole] = useState("defaultRole");
+    const router = useRouter();
     const { register } = useRegister();
 
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const roleParam = searchParams.get('role');
+        if (roleParam) {
+            setRole(roleParam);
+        }
+    }, []);
 
     const handleRegister = async () => {
         if (name && email && password && role) {
@@ -29,27 +37,49 @@ export default function RegisterPage() {
     };
 
     return (
-        <div>
+        <div className="register-container">
             <h1>Register as {role}</h1>
-            <input 
-                type="text" 
-                placeholder="Name" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-            />
-            <input 
-                type="email" 
-                placeholder="Email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-            />
-            <input 
-                type="password" 
-                placeholder="Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-            />
-            <button onClick={handleRegister}>Register</button>
+            <div className="form-group">
+                <label>Name</label>
+                <input 
+                    title="Name"
+                    type="text" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    className="register-input"
+                />
+            </div>
+            <div className="form-group">
+                <label>Email</label>
+                <input 
+                    title="Email"
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    className="register-input"
+                />
+            </div>
+            <div className="form-group">
+                <label>Password</label>
+                <input 
+                    title="Password"
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    className="register-input"
+                />
+            </div>
+            <div className="form-group">
+                <label>Role</label>
+                <input 
+                    title="Role"
+                    type="text" 
+                    value={role} 
+                    readOnly
+                    className="register-input"
+                />
+            </div>
+            <button onClick={handleRegister} className="register-button">Register</button>
         </div>
     );
 }

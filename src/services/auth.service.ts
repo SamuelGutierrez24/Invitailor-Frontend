@@ -32,4 +32,13 @@ export class AuthService {
 
         return response.data;
     }
+
+    public async createEvent(name: string, description: string) {
+        const response = await this.axios.post('/events', {
+            name,
+            description
+        });
+
+        return response.data;
+    }
 }
