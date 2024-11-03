@@ -4,23 +4,12 @@ import './createEvent.css';
 import { useCreateEvent } from '@/hooks/useCreateEvent';
 import { useRouter } from 'next/navigation';
 
-const servicesData = [
-    { id: 1, name: 'Service 1' },
-    { id: 2, name: 'Service 2' },
-    // Agrega más servicios aquí
-];
-
 export default function CreateEventPage() {
     const [eventName, setEventName] = useState('');
     const [eventDescription, setEventDescription] = useState('');
-    const [filter, setFilter] = useState('');
     const [selectedServices, setSelectedServices] = useState<number[]>([]);
     const { createEvent } = useCreateEvent();
     const router = useRouter();
-
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilter(e.target.value);
-    };
 
     const handleServiceToggle = (serviceId: number) => {
         setSelectedServices(prevSelectedServices =>
@@ -30,23 +19,16 @@ export default function CreateEventPage() {
         );
     };
 
-    const handleSubmit = async() => {
-        if (eventName && eventDescription) {
-            try {
-                const event = await createEvent(eventName, eventDescription);
-                alert("Event created!");
-                router.push("/home");
-            } catch (error) {
-                alert("Event creation failed. Please try again.");
-            }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const success = await createEvent(eventName, eventDescription, selectedServices);
+        if (success) {
+            alert('Event Created Successfully!');
+            router.push('/events'); // Redirige a la página de eventos o a la página deseada
         } else {
-            alert("Please fill in all fields");
+            alert('Failed to create event');
         }
     };
-
-    const filteredServices = servicesData.filter(service =>
-        service.name.toLowerCase().includes(filter.toLowerCase())
-    );
 
     return (
         <div className="create-event-container">
@@ -70,30 +52,7 @@ export default function CreateEventPage() {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="serviceFilter">Filter Services</label>
-                    <input
-                        type="text"
-                        id="serviceFilter"
-                        value={filter}
-                        onChange={handleFilterChange}
-                    />
-                </div>
-                <div className="services-list">
-                    {filteredServices.map(service => (
-                        <div key={service.id} className="service-item">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedServices.includes(service.id)}
-                                    onChange={() => handleServiceToggle(service.id)}
-                                />
-                                {service.name}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-                <button type="submit" className="submit-button" onClick={handleSubmit}>Create Event</button>
+                <button onClick={handleSubmit} className="submit-button">Create Event</button>
         </div>
     );
 }

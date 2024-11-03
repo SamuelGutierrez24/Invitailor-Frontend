@@ -1,19 +1,19 @@
-import axios, {AxiosInstance}  from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 export class AuthService {
-    protected readonly axios: AxiosInstance;
+    private axios: AxiosInstance;
 
     constructor(url: string) {
-        this.axios= axios.create({
+        this.axios = axios.create({
             baseURL: url,
             headers: {
                 'Content-Type': 'application/json'
             },
-            timeout: 3000, 
+            timeout: 3000,
             timeoutErrorMessage: 'Request Timeout'
         });
     }
-  
+
     public async login(email: string, password: string) {
         const response = await this.axios.post('/auth/login', {
             email,
@@ -23,22 +23,22 @@ export class AuthService {
         return response.data;
     }
 
-    public async register(fullname: string, email: string, password: string, role: string) {      
-        const response = await this.axios.post(`/auth/register${role}`, {
-            fullname,
-            email,
-            password
-        });
+    public async createEvent(name: string, description: string, services: number[], token: string) {
+        try {
+            const response = await this.axios.post('/events', {
+                name,
+                description,
+                services
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-        return response.data;
-    }
-
-    public async createEvent(name: string, description: string) {
-        const response = await this.axios.post('/events', {
-            name,
-            description
-        });
-
-        return response.data;
+            return response.data;
+        } catch (error) {
+            console.error("Error creating event:", error);
+            throw error;
+        }
     }
 }
