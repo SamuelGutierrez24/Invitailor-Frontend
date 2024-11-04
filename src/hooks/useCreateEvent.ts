@@ -10,9 +10,9 @@ export const useCreateEvent = () => {
             return null;
         }
 
-        const authService = new EventsService("https://invitailor.onrender.com");
+        const eventService = new EventsService("https://invitailor.onrender.com");
         try {
-            const event = await authService.createEvent(name, description, services, token);
+            const event = await eventService.createEvent(name, description, services, token);
             return event as Event;
         } catch (error) {
             console.error("Failed to create event:", error);

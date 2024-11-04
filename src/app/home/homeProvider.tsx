@@ -1,38 +1,67 @@
 import React, { useState } from 'react';
-import { useLogout } from '@/hooks/useLogout'; // Asegúrate de ajustar la ruta según tu estructura de proyecto
+import { useRouter } from 'next/navigation';
 import './homeProvider.css';
+import { useServiceByProviderId } from "@/hooks/useServiceByProviderId";
 
-const servicesData = [
-    { id: 1, name: 'Service 1', description: 'Description of Service 1' },
-    { id: 2, name: 'Service 2', description: 'Description of Service 2' },
-    // Agrega más servicios aquí
-];
 
-export default function ProviderHomePage() {
-    const [services, setServices] = useState(servicesData);
+
+function getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
+}
+
+function getUserIdFromCookie(cookieName: string): string | null {
+    const cookieValue = getCookie(cookieName);
+    if (cookieValue) {
+        try {
+            const decodedValue = decodeURIComponent(cookieValue);
+            const cookieObject = JSON.parse(decodedValue);
+            return cookieObject.id || null;
+        } catch (error) {
+            console.error('Error parsing cookie:', error);
+            return null;
+        }
+    }
+    return null;
+}
+
+export default function HostHomePage() {
     const [filter, setFilter] = useState('');
-    const { logout } = useLogout();
+    const router = useRouter();
+    const providerId = getUserIdFromCookie('currentUser');
+    const { services: servicesData, loading, error } = useServiceByProviderId(providerId || '');
+
+    const services = servicesData || [];
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
     };
 
-    const handleAddService = () => {
-        const newService = { id: services.length + 1, name: `Service ${services.length + 1}`, description: `Description of Service ${services.length + 1}` };
-        setServices([...services, newService]);
+    const handleAddEvent = () => {
+        router.push('/createService');
     };
 
+    const filteredEvents = services.filter(service => service.name.toLowerCase().includes(filter.toLowerCase()));
+
     return (
-        <div className="provider-home-container">
+        <div className="host-home-container">
             <aside className="sidebar">
                 <div className="logo">InviTailor</div>
                 <div className="menu">
                     <button className="menu-item">
-                        <span className="icon">🔧</span> Service
+                        <span className="icon">🔧</span> Providers
+                    </button>
+                    <button className="menu-item">
+                        <span className="icon">➕</span> Create Event
+                    </button>
+                    <button className="menu-item">
+                        <span className="icon">📅</span> My Events
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button" onClick={logout}>
+                <button className="logout-button">
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>
@@ -44,17 +73,17 @@ export default function ProviderHomePage() {
                     <div className="actions">
                         <input 
                             type="text" 
-                            placeholder="Filter services" 
+                            placeholder="Filter events" 
                             value={filter} 
                             onChange={handleFilterChange} 
                             className="filter-input"
                         />
-                        <button onClick={handleAddService} className="add-button">Add Service</button>
+                        <button onClick={handleAddEvent} className="add-event-button">Create Service</button>
                     </div>
-                    <div className="services-container">
-                        <ul className="services-list">
-                            {services.filter(service => service.name.toLowerCase().includes(filter.toLowerCase())).map(service => (
-                                <li key={service.id} className="service-item">
+                    <div className="events-container">
+                        <ul className="events-list">
+                            {filteredEvents.map(service => (
+                                <li key={service.id} className="event-item">
                                     <h2>{service.name}</h2>
                                     <p>{service.description}</p>
                                 </li>
