@@ -14,8 +14,9 @@ export class AuthService {
         });
     }
 
-    public async login(email: string, password: string) {
-        const response = await this.axios.post('/auth/login', {
+    public async register(fullname: string, email: string, password: string, role: string) {
+        const response = await this.axios.post(`/auth/register${role}`, {
+            fullname,
             email,
             password
         });
@@ -23,22 +24,14 @@ export class AuthService {
         return response.data;
     }
 
-    public async createEvent(name: string, description: string, services: number[], token: string) {
-        try {
-            const response = await this.axios.post('/events', {
-                name,
-                description,
-                services
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+    public async login(email: string, password: string) {
+        const response = await this.axios.post('/auth/login', {
+            email,
+            password
+        });
 
-            return response.data;
-        } catch (error) {
-            console.error("Error creating event:", error);
-            throw error;
-        }
+        const { token, ...user } = response.data;
+        
+        return { token, ...user };
     }
 }

@@ -24,7 +24,7 @@ export default function CreateEventPage() {
         const success = await createEvent(eventName, eventDescription, selectedServices);
         if (success) {
             alert('Event Created Successfully!');
-            router.push('/events'); // Redirige a la página de eventos o a la página deseada
+            router.push('/home');
         } else {
             alert('Failed to create event');
         }

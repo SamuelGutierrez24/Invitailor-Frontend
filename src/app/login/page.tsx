@@ -9,6 +9,7 @@ import './login.css';
 export default function LoginPage(){
     useEffect(() => {
         Cookies.remove("currentUser");
+        Cookies.remove("token");
     }, []);
 
     const [login, setLogin] = useState("");

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './homeHost.css';
+import { useEventsByHostId } from "@/hooks/useEventsByHostId";
 
 const eventsData = [
     { id: 1, name: 'Event 1', description: 'Description of Event 1' },
@@ -8,10 +9,35 @@ const eventsData = [
     // Agrega más eventos aquí
 ];
 
+function getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
+}
+
+function getUserIdFromCookie(cookieName: string): string | null {
+    const cookieValue = getCookie(cookieName);
+    if (cookieValue) {
+        try {
+            const decodedValue = decodeURIComponent(cookieValue);
+            const cookieObject = JSON.parse(decodedValue);
+            return cookieObject.id || null;
+        } catch (error) {
+            console.error('Error parsing cookie:', error);
+            return null;
+        }
+    }
+    return null;
+}
+
 export default function HostHomePage() {
-    const [events, setEvents] = useState(eventsData);
     const [filter, setFilter] = useState('');
     const router = useRouter();
+    const hostId = getUserIdFromCookie('currentUser');
+    const { events: eventsData, loading, error } = useEventsByHostId(hostId || '');
+
+    const events = eventsData || [];
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
