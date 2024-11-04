@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { EventsService } from '@/services/events.service'; // Ajusta la ruta según tu estructura de proyecto
+import { EventsService } from '@/services/events.service';
 
 export const useEventsByHostId = (hostId: string) => {
     const [events, setEvents] = useState([]);

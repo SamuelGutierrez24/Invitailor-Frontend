@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './homeHost.css';
 import { useEventsByHostId } from "@/hooks/useEventsByHostId";
-
-const eventsData = [
-    { id: 1, name: 'Event 1', description: 'Description of Event 1' },
-    { id: 2, name: 'Event 2', description: 'Description of Event 2' },
-    // Agrega más eventos aquí
-];
+import { useLogout } from '@/hooks/useLogout';
 
 function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
@@ -47,6 +42,17 @@ export default function HostHomePage() {
         router.push('/createEvent');
     };
 
+    const { logout } = useLogout()
+
+    const handleLogout = () => {
+        logout();
+        router.push('/')
+    }
+
+    const handleViewEvent = (eventId: string) => {
+        router.push(`/viewEvent?id=${eventId}`)
+    }
+
     const filteredEvents = events.filter(event => event.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
@@ -65,7 +71,7 @@ export default function HostHomePage() {
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button">
+                <button onClick={handleLogout} className="logout-button">
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>
@@ -89,7 +95,7 @@ export default function HostHomePage() {
                             {filteredEvents.map(event => (
                                 <li key={event.id} className="event-item">
                                     <h2>{event.name}</h2>
-                                    <p>{event.description}</p>
+                                    <button onClick={() => handleViewEvent(event.id)}>View</button>
                                 </li>
                             ))}
                         </ul>

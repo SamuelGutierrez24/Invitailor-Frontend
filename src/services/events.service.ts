@@ -44,5 +44,16 @@ export class EventsService {
         }
     }
 
+    public async getEventById(eventId: string): Promise<any> {
+        try {
+            const response = await this.axios.get(`/events/${eventId}`);
+
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching event:", error);
+            throw error;
+        }
+    }
+
     
 }
