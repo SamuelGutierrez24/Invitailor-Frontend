@@ -3,12 +3,6 @@ import { useRouter } from 'next/navigation';
 import './homeHost.css';
 import { useEventsByHostId } from "@/hooks/useEventsByHostId";
 
-const eventsData = [
-    { id: 1, name: 'Event 1', description: 'Description of Event 1' },
-    { id: 2, name: 'Event 2', description: 'Description of Event 2' },
-    // Agrega más eventos aquí
-];
-
 function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -47,6 +41,10 @@ export default function HostHomePage() {
         router.push('/createEvent');
     };
 
+    const handleViewProviders = () => {
+        router.push('/viewProviders');
+    }
+
     const filteredEvents = events.filter(event => event.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
@@ -54,7 +52,7 @@ export default function HostHomePage() {
             <aside className="sidebar">
                 <div className="logo">InviTailor</div>
                 <div className="menu">
-                    <button className="menu-item">
+                    <button className="menu-item" onClick={handleViewProviders}>
                         <span className="icon">🔧</span> Providers
                     </button>
                     <button className="menu-item">
