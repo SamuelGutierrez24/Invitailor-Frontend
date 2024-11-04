@@ -44,5 +44,16 @@ export class ServicesService {
         }
     }
 
+    public async getProviders(): Promise<any> {
+        try {
+            const response = await this.axios.get('/providers');
+
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching providers:", error);
+            throw error;
+        }
+    }
+
     
 }

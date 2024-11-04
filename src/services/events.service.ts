@@ -14,12 +14,13 @@ export class EventsService {
         });
     }
 
-    public async createEvent(name: string, description: string, services: number[], token: string) {
+    public async createEvent(name: string, description: string, serviceIds: number[], token: string) {
         try {
+            console.log(serviceIds);
             const response = await this.axios.post('/events', {
                 name,
                 description,
-                services
+                serviceIds
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`

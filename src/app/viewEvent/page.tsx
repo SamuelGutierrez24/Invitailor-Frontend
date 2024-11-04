@@ -39,19 +39,31 @@ export default function ViewEventPage() {
         router.push('/')
     }
 
+    const handleViewProviders = () => {
+        router.push('/viewProviders');
+    }
+
+    const handleAddEvent = () => {
+        router.push('/createEvent');
+    };
+
+    const handleHome = () => {
+        router.push('/home');
+    }
+
     return (
         <div className="host-home-container">
             <aside className="sidebar">
                 <div className="logo">InviTailor</div>
                 <div className="menu">
-                    <button className="menu-item">
+                    <button className="menu-item" onClick={handleViewProviders}>
                         <span className="icon">🔧</span> Providers
                     </button>
-                    <button className="menu-item">
+                    <button className="menu-item" onClick={handleAddEvent}>
                         <span className="icon">➕</span> Create Event
                     </button>
-                    <button className="menu-item">
-                        <span className="icon">📅</span> My Events
+                    <button className="menu-item" onClick={handleHome}>
+                        <span className="icon">📅</span> Home / My Events
                     </button>
                 </div>
                 <div className="spacer"></div>

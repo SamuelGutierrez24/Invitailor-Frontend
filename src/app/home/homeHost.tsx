@@ -67,11 +67,11 @@ export default function HostHomePage() {
                     <button className="menu-item" onClick={handleViewProviders}>
                         <span className="icon">🔧</span> Providers
                     </button>
-                    <button className="menu-item">
+                    <button className="menu-item" onClick={handleAddEvent}>
                         <span className="icon">➕</span> Create Event
                     </button>
                     <button className="menu-item">
-                        <span className="icon">📅</span> My Events
+                        <span className="icon">📅</span> Home / My Events
                     </button>
                 </div>
                 <div className="spacer"></div>

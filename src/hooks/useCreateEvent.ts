@@ -12,6 +12,7 @@ export const useCreateEvent = () => {
 
         const eventService = new EventsService("https://invitailor.onrender.com");
         try {
+            console.log(services);
             const event = await eventService.createEvent(name, description, services, token);
             return event as Event;
         } catch (error) {

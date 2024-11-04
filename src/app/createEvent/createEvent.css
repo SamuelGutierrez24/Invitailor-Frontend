@@ -5,89 +5,177 @@ body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.create-event-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+.create-event-page-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: 220px; /* Aumenta ligeramente el ancho de la barra lateral */
+    background-color: #2c3e50;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Para posicionar el botón de logout en la parte inferior */
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centra verticalmente los botones */
+    flex-grow: 1; /* Toma el espacio restante en la barra lateral */
+}
+
+.menu-item {
+    background-color: #1c2833; /* Color de fondo más oscuro */
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    width: 90%; /* Un poco menos ancho que la barra lateral */
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade sombra a los botones */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.menu-item:hover {
+    background-color: #34495e;
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
+}
+
+.menu-item .icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.spacer {
+    flex-grow: 1; /* Toma el espacio restante en la barra lateral */
+}
+
+.logout-button {
+    background-color: #1c2833; /* Color de fondo más oscuro */
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    width: 90%; /* Un poco menos ancho que la barra lateral */
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: absolute;
+    bottom: 20px;
+    left: 10px; /* Ajusta la posición para que coincida con el ancho reducido */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade sombra al botón de logout */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.logout-button:hover {
+    background-color: #e74c3c;
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
-    font-size: 24px;
+    text-align: center;
     margin-bottom: 20px;
-    color: #2c3e50;
-}
-
-.create-event-form {
-    width: 100%;
 }
 
 .form-group {
     margin-bottom: 20px;
-    width: 100%;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
-    color: #4a5568;
     font-weight: bold;
 }
 
-input[type="text"],
-textarea {
+input, textarea, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-textarea:focus {
-    border-color: #3182ce;
-    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.5);
+textarea {
+    resize: vertical;
 }
 
-.services-list {
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #e2e2e2;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.providers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 200px; /* Ajusta la altura máxima de la lista */
+    overflow-y: auto; /* Añade desplazamiento vertical si es necesario */
+    border: 1px solid #ccc; /* Añade un borde para delimitar la lista */
+    padding: 10px; /* Añade un padding para separar los elementos del borde */
+    border-radius: 5px; /* Añade un borde redondeado */
 }
 
-.service-item {
-    margin-bottom: 10px;
+.provider-item {
+    display: flex;
+    align-items: center;
+    justify-content: left; /* Centra el contenido horizontalmente */
+    gap: 10px;
+}
+
+.provider-item label {
+    flex: 1;
+    text-align: center; /* Centra el texto del nombre del proveedor */
+}
+
+.provider-item input[type="checkbox"] {
+    width: 16px; /* Ajusta el ancho del checkbox */
+    height: 16px; /* Ajusta la altura del checkbox */
 }
 
 .submit-button {
-    padding: 10px 20px;
-    background-color: #3182ce;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button:hover {
-    background-color: #2b6cb0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #0056b3;
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
 }

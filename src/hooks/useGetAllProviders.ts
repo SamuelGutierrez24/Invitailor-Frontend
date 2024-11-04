@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ProvidersService } from '@/services/providers.service';
+import { ServicesService } from '@/services/services.service';
 
 export const useGetAllProviders = () => {
     const [providers, setProviders] = useState([]);
@@ -8,7 +8,7 @@ export const useGetAllProviders = () => {
 
     useEffect(() => {
         const fetchProviders = async () => {
-            const providersService = new ProvidersService("https://invitailor.onrender.com");
+            const providersService = new ServicesService("https://invitailor.onrender.com");
             try {
                 const providersData = await providersService.getProviders();
                 setProviders(providersData);
