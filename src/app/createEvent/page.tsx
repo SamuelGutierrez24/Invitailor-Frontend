@@ -10,9 +10,10 @@ export default function CreateEventPage() {
     const [eventName, setEventName] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [location, setLocation] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
     const [dateTime, setDateTime] = useState('');
     const [selectedServices, setSelectedServices] = useState<number[]>([]);
+    const [image, setImage] = useState<File | null>(null);
     const { createEvent } = useCreateEvent();
     const router = useRouter();
     const { providers, loading, error } = useGetAllProviders();
@@ -27,17 +28,21 @@ export default function CreateEventPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const success = await createEvent(eventName, eventDescription, location, price, dateTime, selectedServices);
-        if (success) {
-            alert('Event Created Successfully!');
-            router.push('/home');
+        if (image) {
+            const success = await createEvent(eventName, eventDescription, location, price, dateTime, selectedServices, image);
+            if (success) {
+                alert('Event Created Successfully!');
+                router.push('/home');
+            } else {
+                alert('Failed to create event');
+            }
         } else {
-            alert('Failed to create event');
+            alert('Please select an image for the event');
         }
     };
 
     if (loading) return <div className="loading">Loading...</div>;
-    if (error) return <div className="error">Error loading providers</div>;
+    if (error) return <div className="error">Error loading page</div>;
 
     return (
         <div className="create-event-page-container">
@@ -97,7 +102,7 @@ export default function CreateEventPage() {
                             type="number"
                             id="price"
                             value={price}
-                            onChange={(e) => setPrice(e.target.value)}
+                            onChange={(e) => setPrice(Number(e.target.value))}
                             required
                         />
                     </div>
@@ -126,6 +131,15 @@ export default function CreateEventPage() {
                                 </div>
                             ))}
                         </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="image">Event Image</label>
+                        <input
+                            type="file"
+                            id="image"
+                            onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+                            required
+                        />
                     </div>
                     <button type="submit" className="submit-button">Create Event</button>
                 </form>

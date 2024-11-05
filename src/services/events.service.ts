@@ -14,28 +14,34 @@ export class EventsService {
         });
     }
 
-    public async createEvent(name: string, description: string, location: string, price: number, dateTime: string, serviceIds: number[], token: string) {
+    public async createEvent(name: string, description: string, location: string, price: number, dateTime: string, serviceIds: number[], token: string, image: File) {
         try {
             console.log(serviceIds);
-            const response = await this.axios.post('/events', {
-                name,
-                description,
-                location,
-                price,
-                dateTime,
-                serviceIds
-            }, {
+    
+            // Create a FormData object to handle the image upload along with other event details
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append('location', location);
+            formData.append('price', price.toString());
+            formData.append('dateTime', dateTime);
+            serviceIds.forEach(serviceId => formData.append('serviceIds', serviceId.toString()));
+            formData.append('file', image);
+    
+            const response = await this.axios.post('/events', formData, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-
+    
             return response.data;
         } catch (error) {
             console.error("Error creating event:", error);
             throw error;
         }
     }
+    
 
     public async getEventsByHostId(hostId: string): Promise<any> {
         try {

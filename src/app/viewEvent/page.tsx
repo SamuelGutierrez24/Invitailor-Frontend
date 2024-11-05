@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,6 @@ export default function ViewEventPage() {
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         const eventIdParam = searchParams.get('id');
-        console.log(eventIdParam)
         if (eventIdParam) {
             setEventId(eventIdParam);
         }
@@ -32,16 +31,16 @@ export default function ViewEventPage() {
         } 
     }, [eventId, fetchEvent]);
 
-    const { logout } = useLogout()
+    const { logout } = useLogout();
 
     const handleLogout = () => {
         logout();
         router.push('/')
-    }
+    };
 
     const handleViewProviders = () => {
         router.push('/viewProviders');
-    }
+    };
 
     const handleAddEvent = () => {
         router.push('/createEvent');
@@ -49,7 +48,7 @@ export default function ViewEventPage() {
 
     const handleHome = () => {
         router.push('/home');
-    }
+    };
 
     return (
         <div className="host-home-container">
@@ -75,9 +74,22 @@ export default function ViewEventPage() {
                 <header className="header">
                     <h1>Host Home</h1>
                 </header>
-                    <div className="events-container">
-                        <h2>{event?.name}</h2>
-                    </div>
+                <div className="events-container">
+                    {event ? (
+                        <>
+                            <h2>{event.name}</h2>
+                            <div className="event-details">
+                                <p><strong>Description:</strong> {event.description}</p>
+                                <p><strong>Location:</strong> {event.location}</p>
+                                <p><strong>Price:</strong> ${event.price}</p>
+                                <p><strong>Date and Time:</strong> {new Date(event.dateTime).toLocaleString()}</p>
+                                {event.url_image && <img src={event.url_image} alt={event.name} className="event-image" />}
+                            </div>
+                        </>
+                    ) : (
+                        <p>Loading event details...</p>
+                    )}
+                </div>
             </main>
         </div>
     );

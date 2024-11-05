@@ -5,5 +5,5 @@ export interface Event {
     location: string;
     price: number;
     dateTime: string;
-    
+    url_image: string
 }
