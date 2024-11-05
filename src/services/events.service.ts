@@ -14,12 +14,15 @@ export class EventsService {
         });
     }
 
-    public async createEvent(name: string, description: string, serviceIds: number[], token: string) {
+    public async createEvent(name: string, description: string, location: string, price: number, dateTime: string, serviceIds: number[], token: string) {
         try {
             console.log(serviceIds);
             const response = await this.axios.post('/events', {
                 name,
                 description,
+                location,
+                price,
+                dateTime,
                 serviceIds
             }, {
                 headers: {

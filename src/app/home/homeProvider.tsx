@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './homeProvider.css';
 import { useServiceByProviderId } from "@/hooks/useServiceByProviderId";
+import { useLogout } from '@/hooks/useLogout';
 
 
 
@@ -43,6 +44,21 @@ export default function HostHomePage() {
         router.push('/createService');
     };
 
+    const handleCreateService = () => {
+        router.push('/createService');
+    };
+
+    const handleHome = () => {
+        router.push('/home');
+    }
+
+    const { logout } = useLogout()
+
+    const handleLogout = () => {
+        logout();
+        router.push('/')
+    }
+
     const filteredEvents = services.filter(service => service.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
@@ -50,18 +66,15 @@ export default function HostHomePage() {
             <aside className="sidebar">
                 <div className="logo">InviTailor</div>
                 <div className="menu">
-                    <button className="menu-item">
-                        <span className="icon">🔧</span> Providers
+                    <button className="menu-item" onClick={handleCreateService}>
+                        <span className="icon">➕</span> Create Service
                     </button>
-                    <button className="menu-item">
-                        <span className="icon">➕</span> Create Event
-                    </button>
-                    <button className="menu-item">
-                        <span className="icon">📅</span> My Events
+                    <button className="menu-item" onClick={handleHome}>
+                        <span className="icon">🛠️</span> My Services
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button">
+                <button className="logout-button" onClick={handleLogout}>
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>

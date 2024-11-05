@@ -1,15 +1,17 @@
-"use client";
+'use client';
+
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import './createEvent.css';
 import { useCreateEvent } from '@/hooks/useCreateEvent';
 import { useGetAllProviders } from '@/hooks/useGetAllProviders';
-import { useRouter } from 'next/navigation';
-import { useLogout } from '@/hooks/useLogout';
 
 export default function CreateEventPage() {
-    const [filter, setFilter] = useState('');
     const [eventName, setEventName] = useState('');
     const [eventDescription, setEventDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [price, setPrice] = useState('');
+    const [dateTime, setDateTime] = useState('');
     const [selectedServices, setSelectedServices] = useState<number[]>([]);
     const { createEvent } = useCreateEvent();
     const router = useRouter();
@@ -25,8 +27,7 @@ export default function CreateEventPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(selectedServices)
-        const success = await createEvent(eventName, eventDescription, selectedServices);
+        const success = await createEvent(eventName, eventDescription, location, price, dateTime, selectedServices);
         if (success) {
             alert('Event Created Successfully!');
             router.push('/home');
@@ -35,48 +36,26 @@ export default function CreateEventPage() {
         }
     };
 
-    const { logout } = useLogout()
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    }
-
-    const handleViewProviders = () => {
-        router.push('/viewProviders');
-    }
-
-    const handleAddEvent = () => {
-        router.push('/createEvent');
-    };
-
-    const handleHome = () => {
-        router.push('/home');
-    }
-
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilter(e.target.value);
-    };
-
-    const filteredServices = providers.filter(service => service.name.toLowerCase().includes(filter.toLowerCase()));
+    if (loading) return <div className="loading">Loading...</div>;
+    if (error) return <div className="error">Error loading providers</div>;
 
     return (
         <div className="create-event-page-container">
             <aside className="sidebar">
                 <div className="logo">InviTailor</div>
                 <div className="menu">
-                    <button className="menu-item" onClick={handleViewProviders}>
+                    <button className="menu-item" onClick={() => router.push('/viewProviders')}>
                         <span className="icon">🔧</span> Providers
                     </button>
-                    <button className="menu-item" onClick={handleAddEvent}>
+                    <button className="menu-item" onClick={() => router.push('/createEvent')}>
                         <span className="icon">➕</span> Create Event
                     </button>
-                    <button className="menu-item" onClick={handleHome}>
+                    <button className="menu-item" onClick={() => router.push('/home')}>
                         <span className="icon">📅</span> Home / My Events
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button" onClick={handleLogout}>
+                <button className="logout-button" onClick={() => router.push('/logout')}>
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>
@@ -99,6 +78,36 @@ export default function CreateEventPage() {
                             id="eventDescription"
                             value={eventDescription}
                             onChange={(e) => setEventDescription(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="location">Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="price">Price</label>
+                        <input
+                            type="number"
+                            id="price"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="dateTime">Date and Time</label>
+                        <input
+                            type="datetime-local"
+                            id="dateTime"
+                            value={dateTime}
+                            onChange={(e) => setDateTime(e.target.value)}
                             required
                         />
                     </div>

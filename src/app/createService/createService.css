@@ -5,89 +5,145 @@ body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f9;
+}
+
+.create-service-page-container {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
     align-items: center;
 }
 
-.create-event-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+.menu-item .icon {
+    margin-right: 10px;
+}
+
+.menu-item:hover {
+    background-color: #34495e;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.logout-button .icon {
+    margin-right: 10px;
+}
+
+.logout-button:hover {
+    background-color: #34495e;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centra el contenido horizontalmente */
 }
 
 h1 {
-    font-size: 24px;
+    text-align: center;
     margin-bottom: 20px;
-    color: #2c3e50;
 }
 
-.create-event-form {
-    width: 100%;
+.form-container {
+    width: 80%; /* Ajusta el ancho del contenedor del formulario */
+    max-width: 600px; /* Ajusta el ancho máximo del contenedor del formulario */
+    padding: 20px;
+    border: 1px solid #ccc; /* Añade un borde al contenedor del formulario */
+    border-radius: 10px; /* Añade un borde redondeado */
+    background-color: #fff; /* Añade un fondo blanco */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añade una sombra */
 }
 
 .form-group {
     margin-bottom: 20px;
-    width: 100%;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
-    color: #4a5568;
     font-weight: bold;
 }
 
-input[type="text"],
+input, textarea, select {
+    width: 100%; /* Asegura que los elementos del formulario ocupen el 100% del ancho del grupo de formularios */
+    padding: 8px; /* Reduce el padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Reduce el tamaño de la fuente */
+}
+
 textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cbd5e0;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input[type="text"]:focus,
-textarea:focus {
-    border-color: #3182ce;
-    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.5);
-}
-
-.services-list {
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #e2e2e2;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.service-item {
-    margin-bottom: 10px;
+    resize: vertical;
 }
 
 .submit-button {
-    padding: 10px 20px;
-    background-color: #3182ce;
+    display: block;
+    width: 100%; /* Ajusta el ancho del botón de envío */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Centra el botón horizontalmente */
 }
 
 .submit-button:hover {
-    background-color: #2b6cb0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #0056b3;
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
 }
