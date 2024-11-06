@@ -75,7 +75,7 @@ export default function CreateEventPage() {
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button" onClick={() => router.push('/logout')}>
+                <button className="logout-button" onClick={() => router.push('/')}>
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>
