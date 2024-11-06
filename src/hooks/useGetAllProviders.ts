@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ServicesService } from '@/services/services.service';
+import { Service } from '@/interfaces/service';
 
 export const useGetAllProviders = () => {
-    const [providers, setProviders] = useState([]);
+    const [providers, setProviders] = useState<Service[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 

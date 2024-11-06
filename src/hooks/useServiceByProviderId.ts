@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ServicesService } from '@/services/services.service'; // Ajusta la ruta según tu estructura de proyecto
+import { Service } from '@/interfaces/service';
 
 export const useServiceByProviderId = (providerId: string) => {
-    const [services, setServices] = useState([]);
+    const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 

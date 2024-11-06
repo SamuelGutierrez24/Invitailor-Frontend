@@ -57,7 +57,7 @@ export default function CreateServicePage() {
                                 type="number"
                                 id="price"
                                 value={price}
-                                onChange={(e) => setPrice(e.target.value)}
+                                onChange={(e) => setPrice(Number(e.target.value))}
                                 required
                             />
                         </div>

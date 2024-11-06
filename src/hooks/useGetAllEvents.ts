@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { EventsService } from '@/services/events.service';
+import { Event } from '@/interfaces/event';
 
 export const useGetAllEvents = () => {
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
