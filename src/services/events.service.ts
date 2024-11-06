@@ -41,6 +41,33 @@ export class EventsService {
             throw error;
         }
     }
+
+    public async editEvent(eventId: string, name: string, description: string, location: string, price: number, dateTime: string, serviceIds: number[], token: string, image: File) {
+        try {
+    
+            // Create a FormData object to handle the image upload along with other event details
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append('location', location);
+            formData.append('price', price.toString());
+            formData.append('dateTime', dateTime);
+            serviceIds.forEach(serviceId => formData.append('serviceIds', serviceId.toString()));
+            formData.append('file', image);
+    
+            const response = await this.axios.patch(`/events/${eventId}`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
+            return response.data;
+        } catch (error) {
+            console.error("Error creating event:", error);
+            throw error;
+        }
+    }
     
 
     public async getEventsByHostId(hostId: string): Promise<any> {
@@ -65,15 +92,19 @@ export class EventsService {
         }
     }
 
-    public async getEvents(): Promise<any> {
+    public async deleteEvent(eventId: string, token: string): Promise<any> {
         try {
-            const response = await this.axios.get('/events');
-
+            const response = await this.axios.delete(`/events/${eventId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
             return response.data;
         } catch (error) {
-            console.error("Error fetching events:", error);
+            console.error("Error deleting event:", error);
             throw error;
         }
     }
+
     
 }
