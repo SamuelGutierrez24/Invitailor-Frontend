@@ -1,13 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './createEvent.css';
-import { useCreateEvent } from '@/hooks/useCreateEvent';
+import './editEvent.css';
+import { useEditEvent } from '@/hooks/useEditEvent';
 import { useGetAllProviders } from '@/hooks/useGetAllProviders';
-import { useServiceById } from '@/hooks/useServiceById';
+import { useEventById } from '@/hooks/useEventById';
+import { Event } from "@/interfaces/event";
 
-export default function CreateEventPage() {
+export default function EditEventPage() {
+    const router = useRouter();
+    const [event, setEvent] = useState<Event | null>(null);
+    const { fetchEvent } = useEventById();
+    const { providers, loading, error } = useGetAllProviders();
+    const { editEvent } = useEditEvent();
+
+    const [eventId, setEventId] = useState<string | null>(null);
     const [eventName, setEventName] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [location, setLocation] = useState('');
@@ -15,12 +23,31 @@ export default function CreateEventPage() {
     const [dateTime, setDateTime] = useState('');
     const [selectedServices, setSelectedServices] = useState<number[]>([]);
     const [image, setImage] = useState<File | null>(null);
-    const [selectedProvider, setSelectedProvider] = useState<any | null>(null);
-    const [showProviderInfo, setShowProviderInfo] = useState(false);
-    const { createEvent } = useCreateEvent();
-    const router = useRouter();
-    const { providers, loading, error } = useGetAllProviders();
-    const { fetchService } = useServiceById();
+    const [removeImage, setRemoveImage] = useState(false);
+
+    const [hasLoaded, setHasLoaded] = useState(false);
+
+    useEffect(() => {
+        async function loadEventData() {
+            const searchParams = new URLSearchParams(window.location.search);
+            const eventIdParam = searchParams.get('id');
+            if (eventIdParam) {
+                setEventId(eventIdParam);
+                const fetchedEvent = await fetchEvent(eventIdParam);
+                setEvent(fetchedEvent);
+                setEventName(fetchedEvent.name);
+                setEventDescription(fetchedEvent.description);
+                setLocation(fetchedEvent.location);
+                setPrice(fetchedEvent.price);
+                setDateTime(fetchedEvent.dateTime);
+            }
+        }
+
+        if (!hasLoaded) {
+            loadEventData();
+            setHasLoaded(true);
+        }
+    }, [hasLoaded, fetchEvent]);
 
     const handleServiceToggle = (serviceId: number) => {
         setSelectedServices(prevSelectedServices =>
@@ -30,23 +57,12 @@ export default function CreateEventPage() {
         );
     };
 
-    const handleProviderClick = async (providerId: string) => {
-        const providerInfo = await fetchService(providerId);
-        setSelectedProvider(providerInfo);
-        setShowProviderInfo(true);
-    };
-
-    const handleClosePopup = () => {
-        setShowProviderInfo(false);
-        setSelectedProvider(null);
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (image) {
-            const success = await createEvent(eventName, eventDescription, location, price, dateTime, selectedServices, image);
+        if (eventId && image) {
+            const success = await editEvent(eventId, eventName, eventDescription, location, price, dateTime, selectedServices, image);
             if (success) {
-                alert('Event Created Successfully!');
+                alert('Event updated Successfully!');
                 router.push('/home');
             } else {
                 alert('Failed to create event');
@@ -54,6 +70,11 @@ export default function CreateEventPage() {
         } else {
             alert('Please select an image for the event');
         }
+    };
+
+    const handleRemoveImage = () => {
+        setRemoveImage(true);
+        setImage(null);
     };
 
     if (loading) return <div className="loading">Loading...</div>;
@@ -80,7 +101,7 @@ export default function CreateEventPage() {
                 </button>
             </aside>
             <main className="main-content">
-                <h1>Create Event</h1>
+                <h1>Edit Event</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="eventName">Event Name</label>
@@ -142,45 +163,27 @@ export default function CreateEventPage() {
                                         checked={selectedServices.includes(provider.id)}
                                         onChange={() => handleServiceToggle(provider.id)}
                                     />
-                                    <label
-                                        htmlFor={`provider-${provider.id}`}
-                                        onClick={() => handleProviderClick(provider.id)}
-                                        className="provider-name-button"
-                                    >
-                                        {provider.name}
-                                    </label>
+                                    <label htmlFor={`provider-${provider.id}`}>{provider.name}</label>
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="image">Event Image</label>
+                        {event?.url_image && !removeImage && (
+                            <div className="current-image">
+                                <img src={event.url_image} alt={event.name} className="event-image" />
+                                <button type="button" onClick={handleRemoveImage} className="remove-image-button">Remove Image</button>
+                            </div>
+                        )}
                         <input
                             type="file"
                             id="image"
                             onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
-                            required
                         />
                     </div>
-                    <button type="submit" className="submit-button">Create Event</button>
+                    <button type="submit" className="submit-button">Edit Event</button>
                 </form>
-                {showProviderInfo && selectedProvider && (
-                <div className="provider-popup">
-                    <div className="provider-popup-content">
-                        <h2>{selectedProvider.name}</h2>
-                        <div className="provider-popup-section">
-                            <h3>Description:</h3>
-                            <p>{selectedProvider.description}</p>
-                        </div>
-                        <div className="provider-popup-section">
-                            <h3>Price:</h3>
-                            <p>${selectedProvider.price}</p>
-                        </div>
-                        
-                        <button onClick={handleClosePopup} className="close-popup-button">Close</button>
-                    </div>
-                </div>
-                )}
             </main>
         </div>
     );
