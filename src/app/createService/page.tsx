@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import './createService.css';
 import { useCreateService } from '@/hooks/useCreateService';
 import { useLogout } from '@/hooks/useLogout';
+import Sidebar from '@/components/Sidebar/providerSidebar';
 
 export default function CreateServicePage() {
     const [serviceName, setServiceName] = useState('');
@@ -24,31 +25,9 @@ export default function CreateServicePage() {
         }
     };
 
-    const { logout } = useLogout()
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    }
-
-
     return (
         <div className="create-service-page-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={() => router.push('/createService')}>
-                        <span className="icon">➕</span> Create Service
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/home')}>
-                        <span className="icon">📅</span> Home / My Services
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button className="logout-button" onClick={handleLogout}>
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <h1>Create Service</h1>
                 <div className="form-container">

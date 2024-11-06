@@ -18,49 +18,6 @@ body {
     height: 100%;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.user-icon img {
-    width: 150px;
-    height: 150px; 
-    border-radius: 50%;
-    margin-bottom: 20px;
-    border: 2px solid #fff;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.menu-item {
-    background: none;
-    border: none;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.menu-item:hover {
-    background-color: #34495e;
-    transform: translateX(5px);
-}
-
 .main-content {
     flex: 1;
     padding: 40px;

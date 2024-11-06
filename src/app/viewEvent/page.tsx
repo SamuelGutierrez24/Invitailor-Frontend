@@ -7,6 +7,7 @@ import { useDeleteEvent } from "@/hooks/useDeleteEvent";
 import { useLogout } from '@/hooks/useLogout';
 import { Event } from "@/interfaces/event";
 import './viewEvent.css';
+import Sidebar from "@/components/Sidebar/hostSidebar";
 
 export default function ViewEventPage() {
     const [eventId, setEventId] = useState("");
@@ -69,33 +70,16 @@ export default function ViewEventPage() {
 
     return (
         <div className="host-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleViewProviders}>
-                        <span className="icon">🔧</span> Providers
-                    </button>
-                    <button className="menu-item" onClick={handleAddEvent}>
-                        <span className="icon">➕</span> Create Event
-                    </button>
-                    <button className="menu-item" onClick={handleHome}>
-                        <span className="icon">📅</span> Home / My Events
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button onClick={handleLogout} className="logout-button">
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+                <Sidebar />
             <main className="main-content">
                 <header className="header">
-                    <h1>Host Home</h1>
+                    <h1>Event</h1>
                 </header>
                 <div className="events-container">
                     {event ? (
                         <>
-                            <button onClick={() => handleEditEvent(event.id)}>Edit</button>
-                            <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+                            <button className="button button-edit" onClick={() => handleEditEvent(event.id)}>Edit</button>
+                            <button className="button button-delete" onClick={() => handleDeleteEvent(event.id)}>Delete</button>
                             <h2>{event.name}</h2>
                             <div className="event-details">
                                 <div className="event-info">

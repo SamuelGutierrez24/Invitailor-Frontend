@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './homeAttendant.css';
 import { useGetAllEvents } from '@/hooks/useGetAllEvents';
 import { useRouter } from 'next/navigation';
+import Sidebar from '@/components/Sidebar/attendantSidebar';
 
 export default function AttendantHomePage() {
     const [filter, setFilter] = useState('');
@@ -29,21 +30,7 @@ export default function AttendantHomePage() {
 
     return (
         <div className="attendant-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleViewTickets}>
-                        <span className="icon">🎟️</span> My Tickets
-                    </button>
-                    <button className="menu-item" onClick={handleHome}>
-                        <span className="icon">📅</span> Events / Home
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button className="logout-button">
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
                     <h1>Attendant Home</h1>

@@ -6,6 +6,7 @@ import { useEventById } from "@/hooks/useEventById";
 import { useLogout } from '@/hooks/useLogout';
 import { Event } from "@/interfaces/event";
 import './viewRegisteredEvent.css';
+import Sidebar from "@/components/Sidebar/attendantSidebar";
 
 export default function viewRegisteredEventPage() {
     const [eventId, setEventId] = useState("");
@@ -31,45 +32,12 @@ export default function viewRegisteredEventPage() {
         } 
     }, [eventId, fetchEvent]);
 
-    const { logout } = useLogout();
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    };
-
-    const handleHome = () => {
-        router.push('/home');
-    };
-
-    const handleViewTickets = () => {
-        router.push('/tickets');
-    }    
-
-    const handleRegister = () => {
-        router.push(`/payEvent?id=${eventId}`)
-    }
-
     return (
         <div className="host-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleViewTickets}>
-                        <span className="icon">🎟️</span> My Tickets
-                    </button>
-                    <button className="menu-item" onClick={handleHome}>
-                        <span className="icon">📅</span> Home / Events
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button onClick={handleLogout} className="logout-button">
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
-                    <h1>Host Home</h1>
+                    <h1>Events</h1>
                 </header>
                 <div className="events-container">
                     {event ? (

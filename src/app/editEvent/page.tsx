@@ -7,6 +7,7 @@ import { useEditEvent } from '@/hooks/useEditEvent';
 import { useGetAllProviders } from '@/hooks/useGetAllProviders';
 import { useEventById } from '@/hooks/useEventById';
 import { Event } from "@/interfaces/event";
+import Sidebar from '@/components/Sidebar/hostSidebar';
 
 export default function EditEventPage() {
     const router = useRouter();
@@ -82,24 +83,7 @@ export default function EditEventPage() {
 
     return (
         <div className="create-event-page-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={() => router.push('/viewProviders')}>
-                        <span className="icon">🔧</span> Providers
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/createEvent')}>
-                        <span className="icon">➕</span> Create Event
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/home')}>
-                        <span className="icon">📅</span> Home / My Events
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button className="logout-button" onClick={() => router.push('/logout')}>
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <h1>Edit Event</h1>
                 <form onSubmit={handleSubmit}>

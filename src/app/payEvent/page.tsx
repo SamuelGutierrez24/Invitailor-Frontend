@@ -5,6 +5,7 @@ import { useEventById } from '@/hooks/useEventById';
 import { useRegisterForEvent } from '@/hooks/useRegisterForEvent';
 import { Event } from '@/interfaces/event';
 import './payEvent.css';
+import Sidebar from '@/components/Sidebar/attendantSidebar';
 
 export default function PayEventPage() {
     const [cardNumber, setCardNumber] = useState("");
@@ -47,27 +48,10 @@ export default function PayEventPage() {
         }
 
     };
-
-    const handleLogout = () => {
-        router.push('/');
-    }
-
+    
     return (
         <div className="pay-event-page-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={() => router.push('/tickets')}>
-                        <span className="icon">🎟️</span> My Tickets
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/home')}>
-                        <span className="icon">📅</span> Events / Home
-                    </button>
-                    <button className="logout-button" onClick={handleLogout}>
-                    <span className="icon">🚪</span> Log Out
-                </button>
-                </div>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
                     <h1>Payment Information</h1>

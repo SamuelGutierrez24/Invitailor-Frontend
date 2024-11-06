@@ -7,6 +7,7 @@ import { useDeleteService } from "@/hooks/useDeleteService";
 import { useLogout } from '@/hooks/useLogout';
 import { Service } from "@/interfaces/service";
 import './viewService.css';
+import Sidebar from "@/components/Sidebar/providerSidebar";
 
 export default function ViewServicePage() {
     const [serviceId, setServiceId] = useState("");
@@ -33,24 +34,6 @@ export default function ViewServicePage() {
         } 
     }, [serviceId, fetchService]);
 
-    const { logout } = useLogout();
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    };
-
-    const handleViewProviders = () => {
-        router.push('/viewProviders');
-    };
-
-    const handleAddService = () => {
-        router.push('/createService');
-    };
-
-    const handleHome = () => {
-        router.push('/home');
-    };
 
     const handleEditService = (serviceId: string) => {
         router.push(`/editService?id=${serviceId}`)
@@ -69,24 +52,7 @@ export default function ViewServicePage() {
 
     return (
         <div className="host-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleViewProviders}>
-                        <span className="icon">🔧</span> Providers
-                    </button>
-                    <button className="menu-item" onClick={handleAddService}>
-                        <span className="icon">➕</span> Create Service
-                    </button>
-                    <button className="menu-item" onClick={handleHome}>
-                        <span className="icon">📅</span> Home / My Services
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button onClick={handleLogout} className="logout-button">
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
                     <h1>Provider Home</h1>
@@ -94,8 +60,8 @@ export default function ViewServicePage() {
                 <div className="services-container">
                     {service ? (
                         <>
-                            <button onClick={() => handleEditService(service.id)}>Edit</button>
-                            <button onClick={() => handleDeleteService(service.id)}>Delete</button>
+                            <button className="button button-edit" onClick={() => handleEditService(service.id)}>Edit</button>
+                            <button className="button button-delete" onClick={() => handleDeleteService(service.id)}>Delete</button>
                             <h2>{service.name}</h2>
                             <div className="service-details">
                                 <p><strong>Description:</strong> {service.description}</p>

@@ -5,96 +5,14 @@ body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f9;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-x: hidden;
 }
 
 .provider-home-container {
     display: flex;
     width: 100%;
     height: 100vh;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
-}
-
-.sidebar {
-    width: 220px; /* Aumenta ligeramente el ancho de la barra lateral */
-    background-color: #2c3e50;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* Para posicionar el botón de logout en la parte inferior */
-}
-
-.sidebar .logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #fff;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centra verticalmente el botón de service */
-    flex-grow: 1; /* Toma el espacio restante en la barra lateral */
-}
-
-.menu-item {
-    background: none;
-    border: none;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade sombra a los botones */
-    border-radius: 5px; /* Bordes redondeados */
-}
-
-.menu-item:hover {
-    background-color: #34495e;
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
-}
-
-.menu-item .icon {
-    margin-right: 10px;
-    font-size: 20px;
-}
-
-.spacer {
-    flex-grow: 1; /* Toma el espacio restante en la barra lateral */
-}
-
-.logout-button {
-    background: none;
-    border: none;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade sombra al botón de logout */
-    border-radius: 5px; /* Bordes redondeados */
-}
-
-.logout-button:hover {
-    background-color: #e74c3c;
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
+    overflow-x: hidden; 
 }
 
 .main-content {
@@ -104,7 +22,7 @@ body, html {
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-x: hidden; 
 }
 
 .header {
@@ -122,7 +40,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    width: 100%; /* Asegura que el contenido no exceda el ancho del contenedor */
+    width: 100%; 
 }
 
 .actions {
@@ -162,13 +80,13 @@ body, html {
 .add-button:hover {
     background-color: #2b6cb0;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .services-container {
     width: 100%;
-    max-height: 400px; /* Altura máxima del contenedor */
-    overflow-y: auto; /* Barra de desplazamiento vertical */
+    max-height: 400px;
+    overflow-y: auto; 
     border: 1px solid #e2e2e2;
     border-radius: 5px;
     padding: 10px;
@@ -211,4 +129,25 @@ body, html {
     margin: 0;
     font-size: 16px;
     color: #4a5568;
+}
+
+.service-button {
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.service-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

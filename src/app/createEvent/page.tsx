@@ -6,6 +6,7 @@ import './createEvent.css';
 import { useCreateEvent } from '@/hooks/useCreateEvent';
 import { useGetAllProviders } from '@/hooks/useGetAllProviders';
 import { useServiceById } from '@/hooks/useServiceById';
+import Sidebar from '@/components/Sidebar/hostSidebar';
 
 export default function CreateEventPage() {
     const [eventName, setEventName] = useState('');
@@ -61,24 +62,7 @@ export default function CreateEventPage() {
 
     return (
         <div className="create-event-page-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={() => router.push('/viewProviders')}>
-                        <span className="icon">🔧</span> Providers
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/createEvent')}>
-                        <span className="icon">➕</span> Create Event
-                    </button>
-                    <button className="menu-item" onClick={() => router.push('/home')}>
-                        <span className="icon">📅</span> Home / My Events
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button className="logout-button" onClick={() => router.push('/')}>
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <h1>Create Event</h1>
                 <form onSubmit={handleSubmit}>

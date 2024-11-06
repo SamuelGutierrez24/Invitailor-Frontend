@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import './homeHost.css';
 import { useEventsByHostId } from "@/hooks/useEventsByHostId";
 import { useLogout } from '@/hooks/useLogout';
+import Sidebar from '@/components/Sidebar/hostSidebar';
 
 function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
@@ -42,43 +43,18 @@ export default function HostHomePage() {
         router.push('/createEvent');
     };
 
-    const { logout } = useLogout()
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    }
+    
 
     const handleViewEvent = (eventId: string) => {
         router.push(`/viewEvent?id=${eventId}`)
     }
 
-    const handleViewProviders = () => {
-        router.push('/viewProviders');
-    }
 
     const filteredEvents = events.filter(event => event.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
         <div className="host-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleViewProviders}>
-                        <span className="icon">🔧</span> Providers
-                    </button>
-                    <button className="menu-item" onClick={handleAddEvent}>
-                        <span className="icon">➕</span> Create Event
-                    </button>
-                    <button className="menu-item">
-                        <span className="icon">📅</span> Home / My Events
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button onClick={handleLogout} className="logout-button">
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
                     <h1>Host Home</h1>
@@ -99,7 +75,7 @@ export default function HostHomePage() {
                             {filteredEvents.map(event => (
                                 <li key={event.id} className="event-item">
                                     <h2>{event.name}</h2>
-                                    <button onClick={() => handleViewEvent(event.id)}>View</button>
+                                    <button className='service-button' onClick={() => handleViewEvent(event.id)}>View</button>
                                 </li>
                             ))}
                         </ul>

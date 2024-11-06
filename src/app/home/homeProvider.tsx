@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import './homeProvider.css';
 import { useServiceByProviderId } from "@/hooks/useServiceByProviderId";
 import { useLogout } from '@/hooks/useLogout';
+import Sidebar from '@/components/Sidebar/providerSidebar';
 
 
 
@@ -44,21 +45,6 @@ export default function ProviderHomePage() {
         router.push('/createService');
     };
 
-    const handleCreateService = () => {
-        router.push('/createService');
-    };
-
-    const handleHome = () => {
-        router.push('/home');
-    }
-
-    const { logout } = useLogout()
-
-    const handleLogout = () => {
-        logout();
-        router.push('/')
-    }
-
     const handleViewService = (serviceId: string) => {
         router.push(`/viewService?id=${serviceId}`)
     }
@@ -67,21 +53,7 @@ export default function ProviderHomePage() {
 
     return (
         <div className="host-home-container">
-            <aside className="sidebar">
-                <div className="logo">InviTailor</div>
-                <div className="menu">
-                    <button className="menu-item" onClick={handleCreateService}>
-                        <span className="icon">➕</span> Create Service
-                    </button>
-                    <button className="menu-item" onClick={handleHome}>
-                        <span className="icon">🛠️</span> My Services
-                    </button>
-                </div>
-                <div className="spacer"></div>
-                <button className="logout-button" onClick={handleLogout}>
-                    <span className="icon">🚪</span> Log Out
-                </button>
-            </aside>
+            <Sidebar />
             <main className="main-content">
                 <header className="header">
                     <h1>Provider Home</h1>
@@ -102,7 +74,7 @@ export default function ProviderHomePage() {
                             {filteredEvents.map(service => (
                                 <li key={service.id} className="event-item">
                                     <h2>{service.name}</h2>
-                                    <button onClick={() => handleViewService(service.id)}>View</button>
+                                    <button className='service-button' onClick={() => handleViewService(service.id)}>View</button>
                                 </li>
                             ))}
                         </ul>
