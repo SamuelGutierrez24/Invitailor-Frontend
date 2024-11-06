@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './viewProviders.css';
-import { useLogout } from '@/hooks/useLogout';
 import { useGetAllProviders } from '@/hooks/useGetAllProviders';
 import Sidebar from '@/components/Sidebar/hostSidebar';
 
@@ -15,6 +14,10 @@ export default function ProvidersPage() {
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
     };
+
+    const handleViewService = (serviceId: string) => {
+        router.push(`/viewService?id=${serviceId}`)
+    }
 
     const filteredProviders = providers.filter(provider => provider.name.toLowerCase().includes(filter.toLowerCase()));
 
@@ -44,7 +47,7 @@ export default function ProvidersPage() {
                                         <h2>{provider.name}</h2>
                                         <p>{provider.description}</p>
                                     </div>
-                                    <button onClick={() => router.push(`/viewService/${provider.id}`)} className="view-provider-button">View</button>
+                                    <button onClick={() => handleViewService(provider.id)} className="view-provider-button">View</button>
                                 </li>
                             ))}
                         </ul>
