@@ -126,13 +126,7 @@ export default function CreateEventPage() {
                                         checked={selectedServices.includes(provider.id)}
                                         onChange={() => handleServiceToggle(provider.id)}
                                     />
-                                    <label
-                                        htmlFor={`provider-${provider.id}`}
-                                        onClick={() => handleProviderClick(provider.id)}
-                                        className="provider-name-button"
-                                    >
                                         {provider.name}
-                                    </label>
                                 </div>
                             ))}
                         </div>
@@ -148,23 +142,6 @@ export default function CreateEventPage() {
                     </div>
                     <button type="submit" className="submit-button">Create Event</button>
                 </form>
-                {showProviderInfo && selectedProvider && (
-                <div className="provider-popup">
-                    <div className="provider-popup-content">
-                        <h2>{selectedProvider.name}</h2>
-                        <div className="provider-popup-section">
-                            <h3>Description:</h3>
-                            <p>{selectedProvider.description}</p>
-                        </div>
-                        <div className="provider-popup-section">
-                            <h3>Price:</h3>
-                            <p>${selectedProvider.price}</p>
-                        </div>
-                        
-                        <button onClick={handleClosePopup} className="close-popup-button">Close</button>
-                    </div>
-                </div>
-                )}
             </main>
         </div>
     );
