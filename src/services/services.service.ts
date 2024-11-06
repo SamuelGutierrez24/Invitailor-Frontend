@@ -55,5 +55,49 @@ export class ServicesService {
         }
     }
 
+    public async getServiceById(serviceId: string): Promise<any> {
+        try {
+            const response = await this.axios.get(`/providers/${serviceId}`);
+
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching event:", error);
+            throw error;
+        }
+    }
+
+    public async deleteService(serviceId: string, token: string): Promise<any> {
+        try {
+            const response = await this.axios.delete(`/providers/${serviceId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+            return response.data;
+        } catch (error) {
+            console.error("Error deleting service:", error);
+            throw error;
+        }
+    }
+
+    public async editService(serviceId: string, name: string, description: string, price: number, token: string) {
+        try {
+
+            const response = await this.axios.patch(`/providers/${serviceId}`, {
+                name,
+                description,
+                price
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+    
+            return response.data;
+        } catch (error) {
+            console.error("Error updating event:", error);
+            throw error;
+        }
+    }
     
 }

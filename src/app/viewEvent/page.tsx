@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useEventById } from "@/hooks/useEventById";
+import { useDeleteEvent } from "@/hooks/useDeleteEvent";
 import { useLogout } from '@/hooks/useLogout';
 import { Event } from "@/interfaces/event";
 import './viewEvent.css';
@@ -12,6 +13,7 @@ export default function ViewEventPage() {
     const [event, setEvent] = useState<Event | null>(null);
     const router = useRouter();
     const { fetchEvent } = useEventById();
+    const { deleteEvent } = useDeleteEvent();
 
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
@@ -50,6 +52,21 @@ export default function ViewEventPage() {
         router.push('/home');
     };
 
+    const handleEditEvent = (eventId: string) => {
+        router.push(`/editEvent?id=${eventId}`)
+    }
+
+    const handleDeleteEvent = async (eventId: string) => {
+        try { 
+            await deleteEvent(eventId); 
+            router.push('/home');
+            alert('Event deleted successfully!'); 
+        } catch (error) { 
+            console.error('Error deleting event:', error); 
+            alert('Failed to delete event'); 
+        }
+    };
+
     return (
         <div className="host-home-container">
             <aside className="sidebar">
@@ -77,12 +94,16 @@ export default function ViewEventPage() {
                 <div className="events-container">
                     {event ? (
                         <>
+                            <button onClick={() => handleEditEvent(event.id)}>Edit</button>
+                            <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
                             <h2>{event.name}</h2>
                             <div className="event-details">
-                                <p><strong>Description:</strong> {event.description}</p>
-                                <p><strong>Location:</strong> {event.location}</p>
-                                <p><strong>Price:</strong> ${event.price}</p>
-                                <p><strong>Date and Time:</strong> {new Date(event.dateTime).toLocaleString()}</p>
+                                <div className="event-info">
+                                    <p><strong>Description:</strong> {event.description}</p>
+                                    <p><strong>Location:</strong> {event.location}</p>
+                                    <p><strong>Price:</strong> ${event.price}</p>
+                                    <p><strong>Date and Time:</strong> {new Date(event.dateTime).toLocaleString()}</p>
+                                </div>
                                 {event.url_image && <img src={event.url_image} alt={event.name} className="event-image" />}
                             </div>
                         </>

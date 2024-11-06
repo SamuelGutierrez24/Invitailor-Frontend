@@ -28,7 +28,7 @@ function getUserIdFromCookie(cookieName: string): string | null {
     return null;
 }
 
-export default function HostHomePage() {
+export default function ProviderHomePage() {
     const [filter, setFilter] = useState('');
     const router = useRouter();
     const providerId = getUserIdFromCookie('currentUser');
@@ -57,6 +57,10 @@ export default function HostHomePage() {
     const handleLogout = () => {
         logout();
         router.push('/')
+    }
+
+    const handleViewService = (serviceId: string) => {
+        router.push(`/viewService?id=${serviceId}`)
     }
 
     const filteredEvents = services.filter(service => service.name.toLowerCase().includes(filter.toLowerCase()));
@@ -98,7 +102,7 @@ export default function HostHomePage() {
                             {filteredEvents.map(service => (
                                 <li key={service.id} className="event-item">
                                     <h2>{service.name}</h2>
-                                    <p>{service.description}</p>
+                                    <button onClick={() => handleViewService(service.id)}>View</button>
                                 </li>
                             ))}
                         </ul>
