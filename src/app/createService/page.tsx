@@ -10,7 +10,7 @@ import Sidebar from '@/components/Sidebar/providerSidebar';
 export default function CreateServicePage() {
     const [serviceName, setServiceName] = useState('');
     const [serviceDescription, setServiceDescription] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(1);
     const { createService } = useCreateService();
     const router = useRouter();
 
