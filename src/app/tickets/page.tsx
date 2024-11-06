@@ -1,11 +1,12 @@
+'use client'
+
 import React, { useState } from 'react';
-import './homeAttendant.css';
-import { useGetAllEvents } from '@/hooks/useGetAllEvents';
+import { useGetRegisteredEvents } from '@/hooks/useGetRegisteredEvents';
 import { useRouter } from 'next/navigation';
 
-export default function AttendantHomePage() {
+export default function Tickets() {
     const [filter, setFilter] = useState('');
-    const { events: eventsData, loading, error } = useGetAllEvents();
+    const { events: eventsData, loading, error } = useGetRegisteredEvents();
     const events = eventsData || [];
     const router = useRouter();
 
@@ -22,10 +23,14 @@ export default function AttendantHomePage() {
     };
 
     const handleViewEvent = (eventId: string) => {
-        router.push(`/viewEventAttendant?id=${eventId}`);
+        router.push(`/viewRegisteredEvent?id=${eventId}`);
     };
 
-    const filteredEvents = events.filter(event => event.name.toLowerCase().includes(filter.toLowerCase()));
+    const handleLogout = () => {
+        router.push('/');
+    }
+
+    const filteredEvents = events.filter(event => event.event.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
         <div className="attendant-home-container">
@@ -40,13 +45,13 @@ export default function AttendantHomePage() {
                     </button>
                 </div>
                 <div className="spacer"></div>
-                <button className="logout-button">
+                <button className="logout-button" onClick={handleLogout}>
                     <span className="icon">🚪</span> Log Out
                 </button>
             </aside>
             <main className="main-content">
                 <header className="header">
-                    <h1>Attendant Home</h1>
+                    <h1>My Tickets</h1>
                 </header>
                 <section className="content">
                     <div className="actions">
@@ -61,12 +66,12 @@ export default function AttendantHomePage() {
                     <div className="events-container">
                         <ul className="events-list">
                             {filteredEvents.map(event => (
-                                <li key={event.id} className="event-item">
+                                <li key={event.event.id} className="event-item">
                                     <div className="event-details">
-                                        <h2>{event.name}</h2>
-                                        <p>{event.description}</p>
+                                        <h2>{event.event.name}</h2>
+                                        <p>{event.event.description}</p>
                                     </div>
-                                    <button onClick={() => handleViewEvent(event.id)} className="view-event-button">View Event</button>
+                                    <button onClick={() => handleViewEvent(event.event.id)} className="view-event-button">View Event</button>
                                 </li>
                             ))}
                         </ul>
