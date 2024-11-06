@@ -123,8 +123,8 @@ export default function CreateEventPage() {
                                     <input
                                         type="checkbox"
                                         id={`provider-${provider.id}`}
-                                        checked={selectedServices.includes(provider.id)}
-                                        onChange={() => handleServiceToggle(provider.id)}
+                                        checked={selectedServices.includes(Number(provider.id))}
+                                        onChange={() => handleServiceToggle(Number(provider.id))}
                                     />
                                         {provider.name}
                                 </div>

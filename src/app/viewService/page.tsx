@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useServiceById } from "@/hooks/useServiceById";
 import { useDeleteService } from "@/hooks/useDeleteService";
 import { Service } from "@/interfaces/service";
+import Cookies from  'js-cookie';
 import './viewService.css';
 import HostSidebar from '@/components/Sidebar/hostSidebar';
 import ProviderSidebar from '@/components/Sidebar/providerSidebar';
@@ -25,7 +26,7 @@ export default function ViewServicePage() {
     }
 
     function getUserRoleFromCookie(cookieName: string): string | null {
-        const cookieValue = getCookie(cookieName);
+        const cookieValue = Cookies.get(cookieName);
         if (cookieValue) {
             try {
                 const decodedValue = decodeURIComponent(cookieValue);

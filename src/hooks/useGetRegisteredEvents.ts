@@ -1,9 +1,10 @@
 import Cookies from "js-cookie";
 import { TicketsService } from "@/services/tickets.service";
 import { useState, useEffect } from "react";
+import { Ticket } from "@/interfaces/ticket";
 
 export const useGetRegisteredEvents = () => {
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState<Ticket[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 

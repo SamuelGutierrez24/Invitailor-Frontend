@@ -1,5 +1,6 @@
+import { Event } from "./event";
 export interface Ticket {
     id: string;
     userId: string;
-    eventId: string;
+    event: Event;
 }
