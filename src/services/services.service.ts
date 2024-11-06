@@ -28,7 +28,7 @@ export class ServicesService {
 
             return response.data;
         } catch (error) {
-            console.error("Error creating event:", error);
+            console.error("Error creating service:", error);
             throw error;
         }
     }
@@ -39,7 +39,7 @@ export class ServicesService {
 
             return response.data;
         } catch (error) {
-            console.error("Error fetching events for host:", error);
+            console.error("Error fetching services for provider:", error);
             throw error;
         }
     }

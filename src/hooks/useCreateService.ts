@@ -13,9 +13,9 @@ export const useCreateService = () => {
         const servicesService = new ServicesService("https://invitailor.onrender.com");
         try {
             const event = await servicesService.createService(name, description, price, token);
-            return event as Event;
+            return event as Service;
         } catch (error) {
-            console.error("Failed to create event:", error);
+            console.error("Failed to create service:", error);
             return null;
         }
     };
