@@ -4,6 +4,10 @@ import './homeHost.css';
 import { useEventsByHostId } from "@/hooks/useEventsByHostId";
 import { useLogout } from '@/hooks/useLogout';
 import Sidebar from '@/components/Sidebar/hostSidebar';
+import { setFilter } from '../../store/eventSlice/event.slice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
@@ -28,7 +32,8 @@ function getUserIdFromCookie(cookieName: string): string | null {
 }
 
 export default function HostHomePage() {
-    const [filter, setFilter] = useState('');
+    const dispatch = useDispatch();
+    const [filter, setLocalFilter] = useState('');
     const router = useRouter();
     const hostId = getUserIdFromCookie('currentUser');
     const { events: eventsData, loading, error } = useEventsByHostId(hostId || '');
@@ -36,8 +41,14 @@ export default function HostHomePage() {
     const events = eventsData || [];
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilter(e.target.value);
+        const value = e.target.value;
+        setLocalFilter(value);
+        dispatch(setFilter(value));
     };
+
+    /*const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFilter(e.target.value);
+    };*/
 
     const handleAddEvent = () => {
         router.push('/createEvent');
@@ -85,3 +96,4 @@ export default function HostHomePage() {
         </div>
     );
 }
+
