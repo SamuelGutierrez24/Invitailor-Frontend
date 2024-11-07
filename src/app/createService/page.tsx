@@ -61,7 +61,7 @@ export default function CreateServicePage() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="submit-button">Create Service</button>
+                        <button id='create' type="submit" className="submit-button">Create Service</button>
                     </form>
                 </div>
             </main>
