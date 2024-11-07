@@ -17,7 +17,7 @@ export default function HomePage() {
       <h1>Welcome to Invitailor</h1>
       <h2>Get started</h2>
       <div className="button-container">
-        <button className="primary-button" onClick={handleLogin}>Login</button>
+        <button id="login" className="primary-button" onClick={handleLogin}>Login</button>
         <div className="dropdown">
           <p className="dropdown-toggle">Register as:</p>
           <div className="dropdown-menu">

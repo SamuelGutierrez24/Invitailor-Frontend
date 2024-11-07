@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
                     <button className="menu-item" onClick={handleHome}>
                         <span className="icon">🛠️</span> My Services
                     </button>
-                <button className="menu-item logout-button" onClick={handleLogout}>
+                <button id='logout' className="menu-item logout-button" onClick={handleLogout}>
                     <span className="icon">🚪</span> Logout
                 </button>
             </div>

@@ -38,28 +38,25 @@ export default function LoginPage(){
         <div className="login-container">
             <div className="login-box">
                 <h1 className="login-title">Login Page</h1>
-                <label className="login-label">Login</label>
+                <label className="login-label" htmlFor="loginInput">Login</label>
                 <input 
+                    id="loginInput"
                     type="text" 
                     placeholder="Login" 
                     value={login} 
                     onChange={(e) => setLogin(e.target.value)}
                     className="login-input"
                 />
-                <label className="login-label">Password</label>
+                <label className="login-label" htmlFor="passwordInput">Password</label>
                 <input 
+                    id="passwordInput"
                     type="password" 
                     placeholder="Password" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)}
                     className="login-input"
                 />
-                <button
-                    onClick={onSubmit}
-                    className="login-button"
-                >
-                    Login
-                </button>
+                <button id="loginButton" type="submit" onClick={onSubmit}>Login</button>
             </div>
         </div>
     );

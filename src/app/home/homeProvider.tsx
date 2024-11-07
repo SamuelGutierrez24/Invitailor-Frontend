@@ -67,14 +67,14 @@ export default function ProviderHomePage() {
                             onChange={handleFilterChange} 
                             className="filter-input"
                         />
-                        <button onClick={handleAddEvent} className="add-event-button">Create Service</button>
+                        <button id='createService' onClick={handleAddEvent} className="add-event-button">Create Service</button>
                     </div>
                     <div className="events-container">
-                        <ul className="events-list">
+                        <ul id='eventList' className="events-list">
                             {filteredEvents.map(service => (
-                                <li key={service.id} className="event-item">
+                                <li key={service.id} className="event-item" id={`service-${service.id}`}>
                                     <h2>{service.name}</h2>
-                                    <button className='service-button' onClick={() => handleViewService(service.id)}>View</button>
+                                    <button id={`view-${service.id}`} className='service-button' onClick={() => handleViewService(service.id)}>View</button>
                                 </li>
                             ))}
                         </ul>
